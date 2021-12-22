@@ -1,0 +1,18 @@
+.jumbotron {
+  padding-top: 4rem;
+  padding-bottom: 8rem;
+  background-image: url(img/BackgroundJumbotron.png);
+}
+
+.containerIP {
+  background-color: #bfdfde;
+  background-position: 50%;
+  margin-top: -4rem;
+  margin-left: 11rem;
+  margin-right: 11rem;
+  border-radius: 20px;
+}
+
+.containerI {
+  margin-top: 8rem;
+}
