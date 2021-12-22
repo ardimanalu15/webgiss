@@ -4,10 +4,6 @@
 
 <div id="map" style="width: 100%; height: 500px;"></div>
 
-
-
-
-
 <Script>
     var peta1 = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
@@ -51,7 +47,6 @@
          jenjang{{ $data->id_jenjang }},
         @endforeach
         ]
-
     });
 
 
@@ -64,11 +59,10 @@
 
    
     var overlayer = {
+        "{{ $kab->nama_kabupaten}}": data{{ $kab->id_kabupaten }},
         @foreach($jenjang as $data)
         "{{ $data->jenjang}}": jenjang{{ $data->id_jenjang }},
-        @endforeach
-        "{{ $kab->nama_kabupaten}}": data{{ $kab->id_kabupaten }},
-          
+        @endforeach                  
     };
 
     L.control.layers(baseMaps, overlayer).addTo(map);
@@ -103,9 +97,6 @@
     L.marker([<?= $data->posisi ?>],{icon: myIcon}).addTo(map)
     .bindPopup(informasi);
     @endforeach
-
-
-
 
 </Script>
 @endsection

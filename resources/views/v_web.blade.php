@@ -66,16 +66,13 @@
         "Dark": peta4,
     };
 
-    var overlayer = {       
-        "SMA": sekolah,
-        "Perguruan Tinggi": pt,      
+    var overlayer = {
+        "Tampilkan SMA<hr />": sekolah,
+        "Tampilkan Perguruan Tinggi<hr/>": pt,              
         @foreach($kabupaten as $data)
-       "{{ $data->nama_kabupaten}}": kabupaten{{ $data->id_kabupaten }},
-       @endforeach          
-       
-         
-   };
-
+       "Kabupaten {{ $data->nama_kabupaten}}": kabupaten{{ $data->id_kabupaten }},
+       @endforeach                  
+   };   
     L.control.layers(baseMaps, overlayer).addTo(map);
 
     @foreach($kabupaten as $data)
