@@ -89,7 +89,7 @@
 //sample data values for populate map
 var data = [
         <?php foreach ($perguruantinggi as $key => $value) { ?>
-            {"posisi":[<?= $value->posisi ?>], "nama_pt":"<?= $value->nama_pt ?>"},
+            {"posisi":[<?= $value->posisi ?>], "nama_pt":"<?= $value->nama_pt ?>", "status":"<?= $value->status ?>",  "jenjang":"<?= $value->jenjang ?>" },
         <?php } ?>		
 	];
     //var markersLayer = new L.LayerGroup();	//layer contain searched elements
@@ -109,11 +109,33 @@ var data = [
 	////////////populate map with markers from sample data
 	for(i in data) {    
 		var nama_pt = data[i].nama_pt;	//value searched
-		var	posisi = data[i].posisi;		//position found
+		var	posisi = data[i].posisi;
+        var jenjang = data[i].jenjang;
+           var status	= data[i].status;
+
+        		//position found
 		marker = new L.Marker(new L.latLng(posisi), {title: nama_pt} );//se property searched
-		marker.bindPopup('nama_pt: '+ nama_pt );
+		marker.bindPopup("Nama Perguruan Tinggi : " + nama_pt +
+                         "<br>Jenjang : " + jenjang +
+                         "<br>status : " + status + 
+                         "<button onclick='return keSini(posisi)'> Ke Sini " + " </button>"        
+        );
 		markersLayer.addLayer(marker);
 	}
 
+    var control = L.Routing.control({
+        waypoints: [
+            L.latLng(-2.989636248410496, 104.74650596334259), //start
+            //tujuan
+        ],
+        routeWhileDragging: true
+    })
+    control.addTo(map);
+
+
+    function keSini(posisi){
+        var latLng = L.latLng(posisi);
+        control.spliceWaypoints(control.getWaypoints().length - 1, 1, latLng);
+    }
 </Script>
 @endsection

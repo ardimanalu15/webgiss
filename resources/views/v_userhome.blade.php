@@ -115,7 +115,7 @@
         </div>
         <div class="row justify-content-center ms-5">
           <div class="col-4">
-            <img src="img/SDGs.png" alt="" width="300" height="300" />
+            <img src="img/SDGs.png" alt="" width="300" height="300" style="margin-top:-100px;" />
           </div>
           <div class="col-6">
             <p>

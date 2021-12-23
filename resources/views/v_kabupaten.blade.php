@@ -87,7 +87,7 @@
         L.marker([<?= $data->posisi ?>],{icon: myIcon}).addTo(map)
         .bindPopup(informasi);
     @endforeach
-
+    
     @foreach($perguruantinggi as $data)
     var myIcon = L.icon({
     iconUrl: '{{asset('kuliah.png')}}',

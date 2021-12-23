@@ -5,10 +5,6 @@
 
 <div id="map" style="width: 100%; height: 500px;"></div>
 
-
-
-
-
 <Script>
     var peta1 = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
@@ -90,7 +86,7 @@
 //sample data values for populate map
 var data = [
         <?php foreach ($sekolah as $key => $value) { ?>
-            {"posisi":[<?= $value->posisi ?>], "nama_sekolah":"<?= $value->nama_sekolah ?>"},
+            {"posisi":[<?= $value->posisi ?>], "nama_sekolah":"<?= $value->nama_sekolah ?>", "status":"<?= $value->status ?>",  "jenjang":"<?= $value->jenjang ?>" },
         <?php } ?>		
 	];
     //var markersLayer = new L.LayerGroup();	//layer contain searched elements
@@ -107,26 +103,37 @@ var data = [
 
 	map.addControl( controlSearch );
 
-    
-	////////////populate map with markers from sample data
-	for(i in data) {       
+	for(i in data) {               
 		var nama_sekolah = data[i].nama_sekolah;	//value searched
-		var	posisi = data[i].posisi;//position found
-        var jenjang = data[i].jenjang;
-        var status	= data[i].status;	
-        var informasi = '';        
-		marker = new L.Marker(new L.latLng(posisi), {title: nama_sekolah})//se property searched
-		marker.bindPopup('<table class="table table-bordered"><tbody><tr><td>Nama Sekolah</td><td><?= $value->nama_sekolah ?> </td></tr><tr><td>Jenjang</td><td><?= $value->jenjang ?></td></tr><tr><td>Status</td><td><?= $value->status ?></td></tr></tbody></table><button> Ke sini</button>');
-		markersLayer.addLayer(marker);
-	}
+    	var	posisi = data[i].posisi;//position found
+      var jenjang = data[i].jenjang;
+           var status	= data[i].status;	
+    //    var informasi = '';        
+	    marker = new L.Marker(new L.latLng(posisi), {title: nama_sekolah})//se property searched
+	    marker.bindPopup("Nama Sekolah : " + nama_sekolah +
+                         "<br>Jenjang : " + jenjang +
+                         "<br>status : " + status +
+                         "<button onclick='return keSini(posisi)'> Ke Sini " + " </button>"                                                    
+                        );
+	    markersLayer.addLayer(marker);
+	    }    
 
-    L.Routing.control({
-    waypoints: [
-        L.latLng(-2.989636248410496, 104.74650596334259), //start
-        L.latLng(-2.976450224683608, 104.75064081177494) //tujuan
-    ],
-    routeWhileDragging: true
-}).addTo(map);
 
+
+
+    var control = L.Routing.control({
+        waypoints: [
+            L.latLng(-2.989636248410496, 104.74650596334259), //start
+          
+        ],
+        routeWhileDragging: true
+    })
+    control.addTo(map);
+
+
+    function keSini(posisi){
+        var latLng = L.latLng(posisi);
+        control.spliceWaypoints(control.getWaypoints().length - 1, 1, latLng);
+    }
 </Script>
 @endsection
